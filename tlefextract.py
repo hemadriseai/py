@@ -12,25 +12,25 @@ layers=re.findall('^LAYER\s+(\w+)\s*\n',fcontent,re.M)
 print(layers)
 for layer in layers:
 	data=re.findall(f'^LAYER\s+{layer}\s*\n.*?^END\s+{layer}',fcontent,re.S|re.M)[0]
-	ltype=re.findall('TYPE\s+(\S+)',data)[0]
+	ltype=re.findall('\s*TYPE\s+(\S+)',data)[0]
 	if ltype.lower() == 'routing':
-		try:mask=re.findall('MASK\s+(\S+)',data)[0]
+		try:mask=re.findall('^\s*MASK\s+(\S+)',data,re.M)[0]
 		except:mask=''
-		try:direction=re.findall('DIRECTION\s+(\S+)',data)[0]
+		try:direction=re.findall('^\s*DIRECTION\s+(\S+)',data,re.M)[0]
 		except:direction=''
-		try:pitch=re.findall('\s*PITCH\s+(.*);',data)[0]
+		try:pitch=re.findall('^\s*PITCH\s+(.*);',data,re.M)[0]
 		except:pitch=''
-		try:offset=re.findall('\s*OFFSET\s+(.*);',data)[0]
+		try:offset=re.findall('^\s*OFFSET\s+(.*);',data,re.M)[0]
 		except:offset=''
-		try:minwidth=re.findall('\s*MINWIDTH\s+(\S+)',data)[0]
+		try:minwidth=re.findall('^\s*MINWIDTH\s+(\S+)',data,re.M)[0]
 		except:minwidth=''
-		try:maxwidth=re.findall('\s*MAXWIDTH\s+(\S+)',data)[0]
+		try:maxwidth=re.findall('^\s*MAXWIDTH\s+(\S+)',data,re.M)[0]
 		except:maxwidth=''
-		try:width=re.findall('\s*WIDTH\s+(\S+)',data)[0]
+		try:width=re.findall('^\s*WIDTH\s+(\S+)',data,re.M)[0]
 		except:width=''
-		try:area=re.findall('\s*AREA\s+(\S+)',data)[0]
+		try:area=re.findall('^\s*AREA\s+(\S+)',data,re.M)[0]
 		except:area=''
-		try:minenclosedarea=re.findall('\s*MINENCLOSEDAREA\s+(\S+)',data)[0]
+		try:minenclosedarea=re.findall('^\s*MINENCLOSEDAREA\s+(\S+)',data,re.M)[0]
 		except:minenclosedarea=''
 		r.write(f'{layer},{ltype},{direction},{mask},{pitch},{offset},{minwidth},{maxwidth},{width},{area},{minenclosedarea}\n')
 
